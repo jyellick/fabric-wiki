@@ -112,4 +112,13 @@ With the answer to this question from _2f+1_ peers (amongst them, the
 peer from which it's getting its blockchain), the client can proceed
 knowing that the blockchain is up-to-date.
 
-In a similar
+In a similar manner, today the blockchain records state-hashes, so the
+client can verify that the state it's transferred (which is at a
+particular block-height) has the right hash.
+
+**Note Well**: When we move the blockchain out of rocksdb, and remove
+  merkle-tree state-hashing from the blockchain, we'll need to
+  periodically take persistent state-snapshots and hash them,
+  simultaneously on all peers.  This isn't complicated, and should be
+  much more efficient than the current mechanism (since such snapshots
+  will occur very infrequently).
