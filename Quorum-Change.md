@@ -7,19 +7,15 @@ state-transfer and view-change mechanism of PBFT.  A more detailed
 plan is as follows:
 
 1. Ensure that all durable state of OBC and PBFT is persisted in the
-'state'.  Specifically:
-
+'state'.  Specifically: 
   * chaincode deployment currently does not store the chaincode source
-    and other relevant parameters in the state
-
+    and other relevant parameters in the state 
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
     etc) that are not persisted in the state.  Call this the "_durable
-    configuration_".
-
+    configuration_". 
   * The PBFT durable configuration should be stored in a single
     'system' chaincode k/v store, and preferably as a single protobuf
-    -- we need a design for this DB.
-
+    -- we need a design for this DB. 
     * this PBFT durable configuration needs to be versioned (to be
       described below)
 
