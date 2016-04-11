@@ -87,3 +87,13 @@ update relevant subsystems.
 last update it performed, so that PBFT will only get told once per update,
 and so that it will get told for certain during startup, if there's a pending
 update.
+
+## Spinning Up a New Peer
+
+There are two problems in spinning up a new peer: 
+* currently, non-validating peers don't really work (per jyellick@)
+and even if they did, they only have the blockchain, not the state 
+* when the peer is retrieving the blockchain and state from the current quorum-set,
+it has no way of validating that that blockchain/state is correct (an issue of trust).
+
+>As an aside
