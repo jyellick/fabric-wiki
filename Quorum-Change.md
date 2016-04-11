@@ -71,3 +71,17 @@ discover whether there is a pending "next configuration".
 
 The state-update process will also need to be modified so that system
 chaincodes are thus-marked; 
+
+[1]: We need to decide if all system parameters should go in a _single
+chaincode k/v store_ or in a number of chaincodes.  I would go with
+the former for simplicity.  Call this k/v store the "system catalog
+chaincode".  PBFT needs to be informed when the PBFT-relevant part of
+this system catalog changes; it is possible that other code will need
+to be informed about other changes.  Storing all system catalog state
+in a single chaincode, would allow a single check during state-delta
+application, to decide whether a detailed scan should be done to
+update relevant subsystems. 
+* For instance, the code that updates PBFT needs to keep track of the 
+last update it performed, so that PBFT will only get told once per update,
+and so that it will get told for certain during startup, if there's a pending
+update.
