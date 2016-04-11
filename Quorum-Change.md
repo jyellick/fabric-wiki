@@ -101,7 +101,7 @@ it has no way of validating that that blockchain/state is correct (an issue of t
 Today, a client downloading a blockchain from a validating peer has no
 way of ascertaining that that peer isn't lying.  In the future, a
 client will be able to perform a "strong read" to ascertain this: 
->a strong read would consist in running a transaction that is
+>a **strong read** would consist in running a transaction that is
  read-only, and subscribing to _3f+1_ peers to observe the results of
  that transaction.
 
