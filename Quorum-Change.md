@@ -32,11 +32,11 @@ is installed, PBFT is informed of this commit-number.
     configuration to take effect in the future, and should act
     accordingly
 
-3. At the prescribed commit-number from (3) above, PBFT will "crash
-and force a view-change" to cause the new configuration to go into
+3. At the prescribed commit-number from (2) above, PBFT will "force a
+   view-change" to cause the new configuration to go into
 effect.  
-  * hence, a view-change must read all durable configuration from the
-    state.
+  * hence, a view-change must re-read all durable configuration from
+    the state.
 
 4. Build a mechanism to allow a new peer to act as a client, connect
 to the current quorum, transfer the current blockchain and
@@ -65,13 +65,13 @@ configuration, and (eventually) will garbage-collect out-of-date
 configurations.
 
 At PBFT startup (or view-change), it will need to be given two things:  
-* blockchain block-height  
+* current (on-disk) blockchain block-height  
 * access to the state  
 With these two data, PBFT can fetch the current configuration, and
 discover whether there is a pending "next configuration".
 
 The state-update process will also need to be modified so that system
-chaincodes are thus-marked; 
+chaincodes are thus-marked (read-below).
 
 ### Managing the "system catalog chaincode store"
 
@@ -104,18 +104,18 @@ in order 2, 1, 3.
 ### Trust and verifying downloaded blockchain and state
 
 Today, a client downloading a blockchain from a validating peer has no
-way of ascertaining that that peer isn't lying.  In the future, a
-client will be able to perform a "strong read" to ascertain this: 
->a **strong read** would consist in running a transaction that is
- read-only, and subscribing to _3f+1_ peers to observe the results of
- that transaction.
+way of ascertaining that that peer isn't lying.  ***In the future**
+(not for today), a client will be able to perform a "strong read" to
+ascertain this: >a **strong read** would consist in running a
+transaction that is read-only, and subscribing to _3f+1_ peers to
+observe the results of that transaction.
 
 In the case of the blockchain itself, the strong read would be asking
 the question 
 >What is the current block-height, and what is the block-hash at that height? 
 With the answer to this question from _2f+1_ peers (amongst them, the
 peer from which it's getting its blockchain), the client can proceed
-knowing that the blockchain is up-to-date.
+with verification of the integrity of its downloaded blockchain.
 
 In a similar manner, today the blockchain records state-hashes, so the
 client can verify that the state it's transferred (which is at a
