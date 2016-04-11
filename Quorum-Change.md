@@ -96,4 +96,16 @@ and even if they did, they only have the blockchain, not the state
 * when the peer is retrieving the blockchain and state from the current quorum-set,
 it has no way of validating that that blockchain/state is correct (an issue of trust).
 
->As an aside
+### Trust and verifying downloaded blockchain and state
+
+Today, a client downloading a blockchain from a validating peer has no
+way of ascertaining that that peer isn't lying.  In the future, a
+client will be able to perform a "strong read" to ascertain this:
+
+>a strong read would consist in running a transaction that is
+ read-only, and subscribing to _3f+1_ peers to observe the results of
+ that transaction.
+
+In the case of the blockchain itself, the strong read would be asking the question
+
+  What is the current block-height, and what is the block-hash at that height?
