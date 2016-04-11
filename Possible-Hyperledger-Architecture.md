@@ -1,2 +1,2 @@
 
-*A Possible Architecture for Hyperledger
+#A Possible Architecture for Hyperledger
