@@ -100,12 +100,16 @@ it has no way of validating that that blockchain/state is correct (an issue of t
 
 Today, a client downloading a blockchain from a validating peer has no
 way of ascertaining that that peer isn't lying.  In the future, a
-client will be able to perform a "strong read" to ascertain this:
-
+client will be able to perform a "strong read" to ascertain this: 
 >a strong read would consist in running a transaction that is
  read-only, and subscribing to _3f+1_ peers to observe the results of
  that transaction.
 
-In the case of the blockchain itself, the strong read would be asking the question
+In the case of the blockchain itself, the strong read would be asking
+the question 
+>What is the current block-height, and what is the block-hash at that height? 
+With the answer to this question from _2f+1_ peers (amongst them, the
+peer from which it's getting its blockchain), the client can proceed
+knowing that the blockchain is up-to-date.
 
-  What is the current block-height, and what is the block-hash at that height?
+In a similar
