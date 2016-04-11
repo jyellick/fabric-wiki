@@ -9,7 +9,7 @@ plan is as follows:
 1. Ensure that all durable state of OBC and PBFT is persisted in the
 'state'.  Specifically: 
   * chaincode deployment currently does not store the chaincode source
-    and other relevant parameters in the state ([Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
+    and other relevant parameters in the state [Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
     etc) that are not persisted in the state.  Call this the "_durable
     configuration_". 
@@ -47,4 +47,18 @@ state-snapshot.
     * state-transfer needs to eventually use the same mechanism, but
       it won't be feasible until all peers take a state-snapshot
       simultaneously. 
+
+## PBFT Durable Configuration
+
+We'll store the PBFT durable configuration in a chaincode state.  The
+keys will be something like "pbft-config:0000NNNN" (zero-padded so it
+sorts right) with NNNN being the commit-number at which the
+configuration takes effect.  The value will be a serialized proto (I'd
+prefer text-serialized (for debuggability), but am not picky) and
+should contain _all_ durable config of PBFT.  A system chaincode will
+install the new configuration, (eventually) checking that the
+transaction was properly signed, and that the key is suitably in the
+future.  It might as well also provide access to the current
+configuration, and (eventually) will garbage-collect out-of-date
+configurations.
 
