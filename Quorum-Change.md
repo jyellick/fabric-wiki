@@ -52,16 +52,16 @@ state-snapshot.
 ## PBFT Changes and Durable Configuration
 
 We'll store the PBFT durable configuration in a chaincode state.  The
-keys will be something like "pbft-config:0000NNNN" (zero-padded so it
-sorts right) with NNNN being the commit-number at which the
-configuration takes effect.  The value will be a serialized proto (I'd
-prefer text-serialized (for debuggability), but am not picky) and
-should contain _all_ durable config of PBFT.  A system chaincode will
-install the new configuration, (eventually) checking that the
-transaction was properly signed, and that the key is suitably in the
-future.  It might as well also provide access to the current
-configuration, and (eventually) will garbage-collect out-of-date
-configurations.
+keys will be something like "pbft-config:0000NNNN" ([decide on
+key-space formats][1]) (zero-padded so it sorts right) with NNNN being
+the commit-number at which the configuration takes effect.  The value
+will be a serialized proto (I'd prefer text-serialized (for
+debuggability), but am not picky) and should contain _all_ durable
+config of PBFT.  A system chaincode will install the new
+configuration, (eventually) checking that the transaction was properly
+signed, and that the key is suitably in the future.  It might as well
+also provide access to the current configuration, and (eventually)
+will garbage-collect out-of-date configurations.
 
 At PBFT startup (or view-change), it will need to be given two things: 
 * blockchain block-height 
