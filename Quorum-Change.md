@@ -4,7 +4,8 @@
 This document is a description of the plan for implementing quorum
 change in OBC's PBFT.  The basic plan is to use the already-existing
 state-transfer and view-change mechanism of PBFT.  A more detailed
-plan is as follows:
+plan is below, followed by sections explaining particular points more
+fully.
 
 1. Ensure that all durable state of OBC and PBFT is persisted in the
 'state'.  Specifically:  
