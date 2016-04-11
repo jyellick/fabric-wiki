@@ -129,3 +129,25 @@ particular block-height) has the right hash.
 
 ### Non-Validating Peers: Clients downloading blockchain and state
 
+**Eventually** if OBC's PBFT/Sieve doesn't currently have full support
+for non-validating peers, we need to extend it to do so.  For now, it
+suffices for a client-that-wants-to-be-a-peer to do the following:  
+* perform a full state-transfer  
+* **then** download the entire blockchain, until the block for which it
+received the full state-transfer.  
+At this point, it will have a full and consistent
+blockchain-plus-state.  As long as the client is doing this _after_
+the quorum-change in which the client was added to the
+quorum-whitelist, the client will get a state containing that
+quorum-whitelist, and this will be ready to join the quorum.
+
+### Actually joining the quorum
+
+Once a client has downloaded the blockchain and state,
+properly-formatted on-disk, it can switch to being a peer, by
+restarting, and there is no good reason for this to be other than a
+really, really, really heavyweight operation.  All the work should be
+in properly arranging files on-disk, so that the switchover is
+trivial.  Basically, the client should be able to fire up the peer,
+pointed at the newly-downloaded blockchain/state, and all should
+proceed as if the peer was existing since the genesis block.
