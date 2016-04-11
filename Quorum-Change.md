@@ -7,47 +7,47 @@ state-transfer and view-change mechanism of PBFT.  A more detailed
 plan is as follows:
 
 1. Ensure that all durable state of OBC and PBFT is persisted in the
-'state'.  Specifically: 
+'state'.  Specifically:  
   * chaincode deployment currently does not store the chaincode source
     and other relevant parameters in the state
-    [Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
+    [Issue 1054](https://github.com/hyperledger/fabric/issues/1054)  
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
     etc) that are not persisted in the state.  Call this the "_durable
-    configuration_". 
+    configuration_".  
   * The PBFT durable configuration should be stored in a single
     'system' chaincode k/v store, and preferably as a single protobuf
-    -- we need a design for this DB. 
+    -- we need a design for this DB.  
     * this PBFT durable configuration needs to be versioned (to be
       described below)
 
 2. Build a mechanism (chaincode) to update that PBFT durable
 configuration, such that a new configuration will take effect as of a
 commit number (blockchain height) in the future, and when that update
-is installed, PBFT is informed of this commit-number. 
+is installed, PBFT is informed of this commit-number.  
   * during PBFT startup, PBFT will consult the state to determine its
     durable configuration, and will fetch the configuration based on
-    the current commit-number. 
+    the current commit-number.  
   * of course (during startup) PBFT might also find a new
     configuration to take effect in the future, and should act
-    accordingly 
+    accordingly
 
 3. At the prescribed commit-number from (3) above, PBFT will "crash
 and force a view-change" to cause the new configuration to go into
-effect. 
+effect.  
   * hence, a view-change must read all durable configuration from the
     state.
 
 4. Build a mechanism to allow a new peer to act as a client, connect
 to the current quorum, transfer the current blockchain and
-state-snapshot. 
+state-snapshot.  
   * jyellick@ notes that these data need to be trustworthy, and we
     _also_ need a mechanism to verify that.  But we can defer this
-    until later 
+    until later  
     * We can ensure trustworthiness of the blockchain using "strong
-      reads" 
+      reads"  
     * state-transfer needs to eventually use the same mechanism, but
       it won't be feasible until all peers take a state-snapshot
-      simultaneously. 
+      simultaneously.
 
 ## PBFT Changes and Durable Configuration
 
@@ -63,9 +63,9 @@ future.  It might as well also provide access to the current
 configuration, and (eventually) will garbage-collect out-of-date
 configurations.
 
-At PBFT startup (or view-change), it will need to be given two things: 
-* blockchain block-height 
-* access to the state 
+At PBFT startup (or view-change), it will need to be given two things:  
+* blockchain block-height  
+* access to the state  
 With these two data, PBFT can fetch the current configuration, and
 discover whether there is a pending "next configuration".
 
@@ -82,7 +82,7 @@ this system catalog changes; it is possible that other code will need
 to be informed about other changes.  Storing all system catalog state
 in a single chaincode, would allow a single check during state-delta
 application, to decide whether a detailed scan should be done to
-update relevant subsystems. 
+update relevant subsystems.  
 * For instance, the code that updates PBFT needs to keep track of the 
 last update it performed, so that PBFT will only get told once per update,
 and so that it will get told for certain during startup, if there's a pending
@@ -90,15 +90,12 @@ update.
 
 ## Spinning Up a New Peer
 
-There are three problems in spinning up a new peer: 
-
+There are three problems in spinning up a new peer:  
 1. currently, non-validating peers don't really work (per jyellick@)
-and even if they did, they only have the blockchain, not the state 
-
+and even if they did, they only have the blockchain, not the state  
 2. when the peer is retrieving the blockchain and state from the
 current quorum-set, it has no way of validating that that
-blockchain/state is correct (an issue of trust). 
-
+blockchain/state is correct (an issue of trust).  
 3. once a "new peer" has a moderately up-to-date blockchain and state,
 it needs to actually "switch" into being a peer.  We'll address these
 in order 2, 1, 3. 
