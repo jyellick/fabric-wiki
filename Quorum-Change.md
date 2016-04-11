@@ -90,7 +90,7 @@ update.
 
 ## Spinning Up a New Peer
 
-There are three problems in spinning up a new peer:
+There are three problems in spinning up a new peer: 
 1. currently, non-validating peers don't really work (per jyellick@)
 and even if they did, they only have the blockchain, not the state 
 2. when the peer is retrieving the blockchain and state from the
