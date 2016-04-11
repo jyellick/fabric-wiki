@@ -92,13 +92,13 @@ update.
 
 There are three problems in spinning up a new peer:
 1. currently, non-validating peers don't really work (per jyellick@)
-and even if they did, they only have the blockchain, not the state
+and even if they did, they only have the blockchain, not the state 
 2. when the peer is retrieving the blockchain and state from the
 current quorum-set, it has no way of validating that that
-blockchain/state is correct (an issue of trust).
+blockchain/state is correct (an issue of trust). 
 3. once a "new peer" has a moderately up-to-date blockchain and state,
 it needs to actually "switch" into being a peer.  We'll address these
-in order 2, 1, 3.
+in order 2, 1, 3. 
 
 ### Trust and verifying downloaded blockchain and state
 
