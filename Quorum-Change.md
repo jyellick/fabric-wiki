@@ -22,35 +22,29 @@ plan is as follows:
 2. Build a mechanism (chaincode) to update that PBFT durable
 configuration, such that a new configuration will take effect as of a
 commit number (blockchain height) in the future, and when that update
-is installed, PBFT is informed of this commit-number.
-
+is installed, PBFT is informed of this commit-number. 
   * during PBFT startup, PBFT will consult the state to determine its
     durable configuration, and will fetch the configuration based on
-    the current commit-number.
-
+    the current commit-number. 
   * of course (during startup) PBFT might also find a new
     configuration to take effect in the future, and should act
-    accordingly
+    accordingly 
 
 3. At the prescribed commit-number from (3) above, PBFT will "crash
 and force a view-change" to cause the new configuration to go into
-effect.
-
+effect. 
   * hence, a view-change must read all durable configuration from the
     state.
 
 4. Build a mechanism to allow a new peer to act as a client, connect
 to the current quorum, transfer the current blockchain and
-state-snapshot.
-
+state-snapshot. 
   * jyellick@ notes that these data need to be trustworthy, and we
     _also_ need a mechanism to verify that.  But we can defer this
-    until later
-
+    until later 
     * We can ensure trustworthiness of the blockchain using "strong
-      reads"
-
+      reads" 
     * state-transfer needs to eventually use the same mechanism, but
       it won't be feasible until all peers take a state-snapshot
-      simultaneously.
+      simultaneously. 
 
