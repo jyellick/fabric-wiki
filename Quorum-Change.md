@@ -9,7 +9,8 @@ plan is as follows:
 1. Ensure that all durable state of OBC and PBFT is persisted in the
 'state'.  Specifically: 
   * chaincode deployment currently does not store the chaincode source
-    and other relevant parameters in the state [Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
+    and other relevant parameters in the state
+    [Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
     etc) that are not persisted in the state.  Call this the "_durable
     configuration_". 
@@ -48,7 +49,7 @@ state-snapshot.
       it won't be feasible until all peers take a state-snapshot
       simultaneously. 
 
-## PBFT Durable Configuration
+## PBFT Changes and Durable Configuration
 
 We'll store the PBFT durable configuration in a chaincode state.  The
 keys will be something like "pbft-config:0000NNNN" (zero-padded so it
@@ -62,3 +63,11 @@ future.  It might as well also provide access to the current
 configuration, and (eventually) will garbage-collect out-of-date
 configurations.
 
+At PBFT startup (or view-change), it will need to be given two things: 
+* blockchain block-height 
+* access to the state 
+With these two data, PBFT can fetch the current configuration, and
+discover whether there is a pending "next configuration".
+
+The state-update process will also need to be modified so that system
+chaincodes are thus-marked; 
