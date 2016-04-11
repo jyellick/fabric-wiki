@@ -19,3 +19,18 @@ plan is as follows:
     store, and preferably as a single protobuf -- we need a design for
     this DB.
 
+2. Build a mechanism to allow a new peer to act as a client, connect
+to the current quorum, transfer the current blockchain and
+state-snapshot.
+
+  * jyellick@ notes that these data need to be trustworthy, and we
+    _also_ need a mechanism to verify that.  But we can defer this
+    until later
+
+    * We can ensure trustworthiness of the blockchain using "strong
+      reads"
+
+    * state-transfer needs to eventually use the same mechanism, but
+      it won't be feasible until all peers take a state-snapshot
+      simultaneously.
+
