@@ -53,7 +53,8 @@ state-snapshot.
 
 We'll store the PBFT durable configuration in a chaincode state.  The
 keys will be something like "pbft-config:0000NNNN"
-[decide on key-space formats][1] (zero-padded so it sorts right) with NNNN being
+[decide on key-space formats][1]
+(zero-padded so it sorts right) with NNNN being
 the commit-number at which the configuration takes effect.  The value
 will be a serialized proto (I'd prefer text-serialized (for
 debuggability), but am not picky) and should contain _all_ durable
