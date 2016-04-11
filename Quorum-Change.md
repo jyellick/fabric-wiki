@@ -13,13 +13,37 @@ plan is as follows:
     and other relevant parameters in the state
 
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
-    etc) that are not persisted in the state
+    etc) that are not persisted in the state.  Call this the "_durable
+    configuration_".
 
-  * All PBFT state should be stored in a single 'system' chaincode k/v
-    store, and preferably as a single protobuf -- we need a design for
-    this DB.
+  * The PBFT durable configuration should be stored in a single
+    'system' chaincode k/v store, and preferably as a single protobuf
+    -- we need a design for this DB.
 
-2. Build a mechanism to allow a new peer to act as a client, connect
+    * this PBFT durable configuration needs to be versioned (to be
+      described below)
+
+2. Build a mechanism (chaincode) to update that PBFT durable
+configuration, such that a new configuration will take effect as of a
+commit number (blockchain height) in the future, and when that update
+is installed, PBFT is informed of this commit-number.
+
+  * during PBFT startup, PBFT will consult the state to determine its
+    durable configuration, and will fetch the configuration based on
+    the current commit-number.
+
+  * of course (during startup) PBFT might also find a new
+    configuration to take effect in the future, and should act
+    accordingly
+
+3. At the prescribed commit-number from (3) above, PBFT will "crash
+and force a view-change" to cause the new configuration to go into
+effect.
+
+  * hence, a view-change must read all durable configuration from the
+    state.
+
+4. Build a mechanism to allow a new peer to act as a client, connect
 to the current quorum, transfer the current blockchain and
 state-snapshot.
 
