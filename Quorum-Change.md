@@ -9,7 +9,7 @@ plan is as follows:
 1. Ensure that all durable state of OBC and PBFT is persisted in the
 'state'.  Specifically: 
   * chaincode deployment currently does not store the chaincode source
-    and other relevant parameters in the state 
+    and other relevant parameters in the state ([Issue 1054](https://github.com/hyperledger/fabric/issues/1054) 
   * PBFT itself has a few parameters (quorum whitelist, "f" parameter,
     etc) that are not persisted in the state.  Call this the "_durable
     configuration_". 
