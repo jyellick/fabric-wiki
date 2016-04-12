@@ -57,7 +57,7 @@ I want to make another thing crystal-clear:
     seeing an inconsistency is vanishingly small.
 
 Until a partition that lasts longer than an hour.  And as we all know,
-[the network is reliable.][Aphr].
+[the network is reliable.][Aphyr].
 
 
 [Sirer2016]:
