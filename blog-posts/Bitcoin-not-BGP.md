@@ -22,19 +22,22 @@ this, he means that, even though at any point,
 
 >the last few blocks of a blockchain are subject to rearrangement  
 
-if one waits until a few blocks more have been appended to the
-blockchain, then the _rest_ of the blockchain is _not_ subject to
-rearrangement in any real-world sense.  Hence, if we look back six
-blocks in the chain, the blockchain's answers to questions like "did
-Joe make that payment of $50k for my Maserati" are not subject to
-revision.  The argument is that there is some parameter &#937;
+there is some number of blocks &#937; such that, if we discard those
+last &#937;, then the _rest_ of the chain is unchanging and
+consistent.  From this, arises a recipe for "knowing if you got paid":  
+1. look for your transaction in the blockchain  
+2. wait until &#937; blocks have appeared "above" your tran (in the
+   parlance, your transaction has been "buried" by &#937; blocks)  
+3. look again for your transaction; if it still appears in that block,
+   you can trust that you got paid.  
+Since Bitcoin generates blocks more-or-less every ten minutes, this
+corresponds directly to a waiting period.
 
-&#955;
-
-Let's make the assumption crystal-clear:
+So let's make this crystal-clear.  The arguent is:
 
     If we can put an upper bound on how long we need to wait, for the
-    block in which our tran is found, to stabilize, 
+    block in which our tran is found to stabilize, then effectively
+    Bitcoin (with that wait) is a consistent system.
 
 This is false for one simple reason:
 
@@ -45,13 +48,20 @@ network) can and will proceed onwards, mining new blocks and extending
 the blockchain.  This is touted as a _strength_ of Bitcoin (and is the
 essence of "permissionlessness": in a sense, each partition acts as if
 the other side has just "exited" the network).  When the network
-partition is repaired, 
+partition is repaired, one or the other side will find that _all_ the
+blocks mined since the partition have disappeared.
 
+I want to another thing crystal-clear:
 
+    Sirer is right, that if you want &#937; = 6 blocks, the chance of
+    seeing an inconsistency is vanishingly small.
+
+Until a partition that lasts longer than an hour.  And as we all know,
+[the network is reliable.][Aphr].
 
 
 [Sirer2016]:
 http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
 [DeckerSeidelWattenhofer2014]: http://arxiv.org/pdf/1412.7935.pdf
-[Wikipedia-Consensus]:
-https://en.wikipedia.org/wiki/Consensus_(computer_science)
+[Wikipedia-Consensus]: https://en.wikipedia.org/wiki/Consensus_(computer_science)
+[Aphyr]: https://aphyr.com/posts/288-the-network-is-reliable
