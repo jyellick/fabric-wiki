@@ -41,7 +41,7 @@ mezzanine tranches of CDOs".  The complexity _should_ boggle the mind,
 and convince one that we should expect arbitrary database
 applications, not simplistic systems like Bitcoin.
 
-## A Brief Counter-example
+## Back to Our Counter-example; Bitcoin is not Consistent
 
 Sirer's argument is that Bitcoin provides "strong consistency".  By
 this, he means that, even though at any point,  
