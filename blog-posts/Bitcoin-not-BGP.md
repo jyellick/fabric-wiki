@@ -65,6 +65,16 @@ of three properties of a system that _chooses_ values:
 * **Validity** A process never learns that a value has been chosen,
 unless it actually has been.
 
+In the context of a blockchain, we can think of consensus in terms of
+the blocks: we achieve consensus on the value of each block,
+one-by-one.  Each process participating in the system (each _miner_)
+is choosing blocks, and to say that the protocol the miners execute,
+achieves consensus, means precisely that the values chosen by the
+miners satisfy the three properties above.  
+    And in this presentation, we can assume that the meaning "choose
+    the value of block N" is "choose the value of block N, afer
+    Omega=6 blocks have buried block N"
+
 
 [Sirer2016]: http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
 [DeckerSeidelWattenhofer2014]: http://arxiv.org/pdf/1412.7935.pdf
