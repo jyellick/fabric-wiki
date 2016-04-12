@@ -9,9 +9,9 @@ this short note, I want to do two things:
   the publicly known properties of Bitcoin, to prove that Bitcoin
   cannot offer anything that anybody would _recognize_ as "strong consistency".  
 * **Briefly re-explain why [_consensus_][Wikipedia-Consensus] is the
-right property to ask of a distributed database suitable for building
+right property** to ask of a distributed database suitable for building
 WAN-scale financial systems.  
-* **Briefly re-the counter-example, as a proof that Bitcoin cannot
+* **Briefly re-cap the counter-example**, as a proof that Bitcoin cannot
   solve the consensus problem.
 
 ## A Brief Counter-example
