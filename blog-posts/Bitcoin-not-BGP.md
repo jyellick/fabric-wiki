@@ -5,15 +5,15 @@ Recently [Emin Gun Sirer][Sirer2016] argued that Bitcoin provides
 strong consistency, not eventual consistency (as was argued by
 [Bitcoin Meets Strong Consistency][DeckerSeidelWattenhofer2014]).  In
 this short note, I want to do three things:  
-* provide a brief counter-example, based only on publicly known
-  properties of Bitcoin, that it _cannot_ provide anything that
-  anybody would _recognize_ as "strong consistency".  
-* recap Sirer's argument in detail, pointing out where I believe his
+* **provide a brief counter-example**.  It suffices to understand only
+  the publicly known properties of Bitcoin, to prove that Bitcoin
+  cannot offer antyhing that anybody would _recognize_ as "strong consistency".  
+* **recap Sirer's argument** in detail, pointing out where I believe his
   mistake lies.  
-* Argue that in fact, what we ought to be asking ourselves, is whether
-  Bitcoin provides [_consensus_][Wikipedia-Consensus] (in the classic
-  formulation due to Lamport, Fischer, Lynch, Patterson, and others).
-  And what we'll find, is that Bitcoin does _not_ provide consensus.
+* **Argue that _consensus_[Wikipedia-Consensus] and not _strong
+consistency_ is the right property**.  Consensus is the right property
+to ask of a distributed database suitable for building WAN-scale
+financial systems, and Bitcoin does not provide it.
 
 
 
