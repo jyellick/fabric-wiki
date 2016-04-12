@@ -1,5 +1,5 @@
 
-# Bitcoin Does Not Solve Byzantine Generals
+# Bitcoin Does Not Provide Strong Consistency
 
 Recently [Emin Gun Sirer][Sirer2016] argued that Bitcoin provides
 strong consistency, not eventual consistency (as was argued by
