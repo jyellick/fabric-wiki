@@ -27,7 +27,7 @@ blockchain, then the _rest_ of the blockchain is _not_ subject to
 rearrangement in any real-world sense.  Hence, if we look back six
 blocks in the chain, the blockchain's answers to questions like "did
 Joe make that payment of $50k for my Maserati" are not subject to
-revision.  The argument is that there is some parameter &#3A9;
+revision.  The argument is that there is some parameter &#937;
 
 &#955;
 
