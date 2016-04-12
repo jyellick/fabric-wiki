@@ -1,21 +1,24 @@
 
 #Fisking "Why Bitcoin Matters"
 
-A mysterious new technology emerges, seemingly out of nowhere, but actually the result of two decades of intense research and development by nearly anonymous researchers.
+Recently
+[Marc Andreesen wrote a blog post][Andreesen-Why-Bitcoin-Matters]
+arguing that Bitcoin is a pivotal technology for financial
+transactions.  He makes a number of expansive claims in the post,
+which I feel are categorically false, and need to be debunked.  Hence,
+this post.
 
-Political idealists project visions of liberation and revolution onto it; establishment elites heap contempt and scorn on it.
 
-On the other hand, technologists – nerds – are transfixed by it. They see within it enormous potential and spend their nights and weekends tinkering with it.
-
-Eventually mainstream products, companies and industries emerge to commercialize it; its effects become profound; and later, many people wonder why its powerful promise wasn’t more obvious from the start.
-
-What technology am I talking about? Personal computers in 1975, the Internet in 1993, and – I believe – Bitcoin in 2014.
-
-One can hardly accuse Bitcoin of being an uncovered topic, yet the gulf between what the press and many regular people believe Bitcoin is, and what a growing critical mass of technologists believe Bitcoin is, remains enormous. In this post, I will explain why Bitcoin has so many Silicon Valley programmers and entrepreneurs all lathered up, and what I think Bitcoin’s future potential is.
-
-First, Bitcoin at its most fundamental level is a breakthrough in computer science – one that builds on 20 years of research into cryptographic currency, and 40 years of research in cryptography, by thousands of researchers around the world.
-
-Bitcoin is the first practical solution to a longstanding problem in computer science called the Byzantine Generals Problem. To quote from the original paper defining the B.G.P.: “[Imagine] a group of generals of the Byzantine army camped with their troops around an enemy city. Communicating only by messenger, the generals must agree upon a common battle plan. However, one or more of them may be traitors who will try to confuse the others. The problem is to find an algorithm to ensure that the loyal generals will reach agreement.”
+>First, Bitcoin at its most fundamental level is a breakthrough in
+computer science ... Bitcoin is the first practical solution to a
+longstanding problem in computer science called the Byzantine Generals
+Problem. To quote from the original paper defining the B.G.P.:
+“[Imagine] a group of generals of the Byzantine army camped with their
+troops around an enemy city. Communicating only by messenger, the
+generals must agree upon a common battle plan. However, one or more of
+them may be traitors who will try to confuse the others. The problem
+is to find an algorithm to ensure that the loyal generals will reach
+agreement.”
 
 More generally, the B.G.P. poses the question of how to establish trust between otherwise unrelated parties over an untrusted network like the Internet.
 
@@ -104,3 +107,6 @@ Economists who attack Bitcoin today might be correct, but I’m with Ben and Mil
 Further, there is no shortage of regulatory topics and issues that will have to be addressed, since almost no country’s regulatory framework for banking and payments anticipated a technology like Bitcoin.
 
 But I hope that I have given you a sense of the enormous promise of Bitcoin. Far from a mere libertarian fairy tale or a simple Silicon Valley exercise in hype, Bitcoin offers a sweeping vista of opportunity to reimagine how the financial system can and should work in the Internet era, and a catalyst to reshape that system in ways that are more powerful for individuals and businesses alike.
+
+[Andreesen-Why-Bitcoin-Matters]: https://a16z.com/2014/01/21/why-bitcoin-matters-2/
+
