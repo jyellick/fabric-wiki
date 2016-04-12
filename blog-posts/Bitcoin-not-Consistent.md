@@ -24,11 +24,14 @@ with the underlying technology.  They must deal with (at a minimum):
 * **default risk**: (banks keep track of how much they're owed by other
   banks, and this forces those other banks to reorder their payments
   to minimize their balances)  
-* **liquidity**: banks may need to borrow funds short-term to make
+* **liquidity costs**: banks may need to borrow funds short-term to make
   payments (the basic function of banks, let's remember, is to borrow
   short and lend long)  
-
-
+These issues directly correspond to complexity in the database
+application.  Similarly, most retail brokerage applications (another
+touted application of blockchains) have a complex data-models --
+including details like tax-lot calculations, multiple and complex
+access-control, etc, etc, etc.
 
 ## A Brief Counter-example
 
