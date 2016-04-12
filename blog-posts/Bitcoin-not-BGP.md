@@ -27,13 +27,29 @@ blockchain, then the _rest_ of the blockchain is _not_ subject to
 rearrangement in any real-world sense.  Hence, if we look back six
 blocks in the chain, the blockchain's answers to questions like "did
 Joe make that payment of $50k for my Maserati" are not subject to
-revision.
+revision.  The argument is that there is some parameter &#03A9;
+
+Let's make the assumption crystal-clear:
+
+    If we can put an upper bound on how long we need to wait, for the
+    block in which our tran is found, to stabilize, 
 
 This is false for one simple reason:
 
-    Network can and do partition, and for unpredictably long times.
+    Networks can and do partition, and for unpredictably long times.
+
+If the bitcoin network partitions, then each partition (side of the
+network) can and will proceed onwards, mining new blocks and extending
+the blockchain.  This is touted as a _strength_ of Bitcoin (and is the
+essence of "permissionlessness": in a sense, each partition acts as if
+the other side has just "exited" the network).  When the network
+partition is repaired, 
 
 
-[Sirer2016]: http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
+
+
+[Sirer2016]:
+http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
 [DeckerSeidelWattenhofer2014]: http://arxiv.org/pdf/1412.7935.pdf
-[Wikipedia-Consensus]: https://en.wikipedia.org/wiki/Consensus_(computer_science)
+[Wikipedia-Consensus]:
+https://en.wikipedia.org/wiki/Consensus_(computer_science)
