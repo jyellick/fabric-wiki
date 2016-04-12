@@ -4,16 +4,13 @@
 Recently [Emin Gun Sirer][Sirer2016] argued that Bitcoin provides
 strong consistency, not eventual consistency (as was argued by
 [Bitcoin Meets Strong Consistency][DeckerSeidelWattenhofer2014]).  In
-this short note, I want to do three things:  
+this short note, I want to do two things:  
 * **provide a brief counter-example**.  It suffices to understand only
   the publicly known properties of Bitcoin, to prove that Bitcoin
   cannot offer anything that anybody would _recognize_ as "strong consistency".  
-* **recap Sirer's argument** in detail, pointing out where I believe his
-  mistake lies.  
-* **Argue that [_consensus_][Wikipedia-Consensus] and not _strong
-consistency_ is the right property**.  Consensus is the right property
-to ask of a distributed database suitable for building WAN-scale
-financial systems, and Bitcoin does not provide it.
+* **Briefly re-explain why [_consensus_][Wikipedia-Consensus] is the
+right property to ask of a distributed database suitable for building
+WAN-scale financial systems.
 
 ## A Brief Counter-example
 
@@ -57,11 +54,20 @@ I want to make another thing crystal-clear:
     seeing an inconsistency is vanishingly small.
 
 Until a partition that lasts longer than an hour.  And as we all know,
-[the network is reliable.][Aphyr].
+[the network is reliable.][Aphyr], so that never happens.
+
+## Consensus and why it's the right property
+
+Consensus is [defined by Lamport][Lamport-Paxos-Made-Simple] in terms
+of three properties of a system that _chooses_ values:  
+* **Integrity** Only a value that has been proposed, may be chosen.  
+* **Agreement** Only a single value is chosen.  
+* **Validity** A process never learns that a value has been chosen,
+unless it actually has been.
 
 
-[Sirer2016]:
-http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
+[Sirer2016]: http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
 [DeckerSeidelWattenhofer2014]: http://arxiv.org/pdf/1412.7935.pdf
 [Wikipedia-Consensus]: https://en.wikipedia.org/wiki/Consensus_(computer_science)
 [Aphyr]: https://aphyr.com/posts/288-the-network-is-reliable
+[Lamport-Paxos-Made-Simple]: http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf
