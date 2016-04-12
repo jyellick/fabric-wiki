@@ -10,7 +10,7 @@ this short note, I want to do three things:
   cannot offer antyhing that anybody would _recognize_ as "strong consistency".  
 * **recap Sirer's argument** in detail, pointing out where I believe his
   mistake lies.  
-* **Argue that _consensus_[Wikipedia-Consensus] and not _strong
+* **Argue that (_consensus_)[Wikipedia-Consensus] and not _strong
 consistency_ is the right property**.  Consensus is the right property
 to ask of a distributed database suitable for building WAN-scale
 financial systems, and Bitcoin does not provide it.
@@ -33,7 +33,7 @@ consistent.  From this, arises a recipe for "knowing if you got paid":
 Since Bitcoin generates blocks more-or-less every ten minutes, this
 corresponds directly to a waiting period.
 
-So let's make this crystal-clear.  The arguent is:
+So let's make this crystal-clear.  The argument is:
 
     If we can put an upper bound on how long we need to wait, for the
     block in which our tran is found to stabilize, then effectively
