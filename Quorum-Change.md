@@ -108,13 +108,21 @@ update.
 There are three problems in spinning up a new peer:  
 1. currently, non-validating peers don't really work (per jyellick@)
 and even if they did, they only have the blockchain, not the state.
-This is most likely a relatively simple fix, `noops` invokes a
+* Half of this is most likely a relatively simple fix, `noops` invokes a
 method `notifyBlockAdded` after a block has been committed, which
 creates the relevant message and broadcasts it to the NVPs.  The
 reluctance to add this to PBFT is because this seems like an odd thing
 for consensus to be doing, that instead this should probably be handled
 somewhere deeper in the peer, as this should be a common feature of all
 consensus implementations.
+* The other half of this is the fact that NVPs do not perform state
+transfer today.  If they are live on the network to receive broadcast
+blocks then their blockchain stays up to date, but I believe they do
+not fill in any gaps in their blockchain.  There are a couple issues
+already out there around this #645 and #640, but a new issue to actually
+implement this for NVPs should also be created.  Still, this should be
+the same common state transfer code used by consensus, so hopefully
+this is not a huge piece of work.
 2. when the peer is retrieving the blockchain and state from the
 current quorum-set, it has no way of validating that that
 blockchain/state is correct (an issue of trust).  
