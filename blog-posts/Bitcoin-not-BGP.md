@@ -71,6 +71,7 @@ one-by-one.  Each process participating in the system (each _miner_)
 is choosing blocks, and to say that the protocol the miners execute,
 achieves consensus, means precisely that the values chosen by the
 miners satisfy the three properties above.  
+
     And in this presentation, we can assume that the meaning "choose
     the value of block N" is "choose the value of block N, afer
     Omega=6 blocks have buried block N"
