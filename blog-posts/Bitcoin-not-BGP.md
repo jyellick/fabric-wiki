@@ -10,7 +10,9 @@ this short note, I want to do two things:
   cannot offer anything that anybody would _recognize_ as "strong consistency".  
 * **Briefly re-explain why [_consensus_][Wikipedia-Consensus] is the
 right property to ask of a distributed database suitable for building
-WAN-scale financial systems.
+WAN-scale financial systems.  
+* **Briefly re-the counter-example, as a proof that Bitcoin cannot
+  solve the consensus problem.
 
 ## A Brief Counter-example
 
@@ -56,7 +58,7 @@ I want to make another thing crystal-clear:
 Until a partition that lasts longer than an hour.  And as we all know,
 [the network is reliable.][Aphyr], so that never happens.
 
-## Consensus and why it's the right property
+## Consensus: Why it's the Right Property for WAN-Scale Databases
 
 Consensus is [defined by Lamport][Lamport-Paxos-Made-Simple] in terms
 of three properties of a system that _chooses_ values:  
@@ -64,6 +66,10 @@ of three properties of a system that _chooses_ values:
 * **Agreement** Only a single value is chosen.  
 * **Validity** A process never learns that a value has been chosen,
 unless it actually has been.
+
+
+
+## Consensus and why Bitcoin doesn't achieve it
 
 In the context of a blockchain, we can think of consensus in terms of
 the blocks: we achieve consensus on the value of each block,
@@ -76,6 +82,13 @@ miners satisfy the three properties above.
     the value of block N" is "choose the value of block N, afer
     Omega=6 blocks have buried block N"
 
+It should be clear now that Bitcoin (in the face of arbitrary network
+partitions) cannot achieve **Agreement**: on each side of the
+partition, miners choose the value of a block, and if the partition
+lasts long enough, that choice outlasts Omega .... so applications
+that rely on this definition of "choose" _will_ act on the assumption
+that the block is irrevocable, only to find (on one side of the
+partition) that when the partition heals, the block is indeed revoked.
 
 [Sirer2016]: http://hackingdistributed.com/2016/03/01/bitcoin-guarantees-strong-not-eventual-consistency/
 [DeckerSeidelWattenhofer2014]: http://arxiv.org/pdf/1412.7935.pdf
