@@ -27,11 +27,19 @@ with the underlying technology.  They must deal with (at a minimum):
 * **liquidity costs**: banks may need to borrow funds short-term to make
   payments (the basic function of banks, let's remember, is to borrow
   short and lend long)  
+
 These issues directly correspond to complexity in the database
-application.  Similarly, most retail brokerage applications (another
-touted application of blockchains) have a complex data-models --
-including details like tax-lot calculations, multiple and complex
-access-control, etc, etc, etc.
+application (for example, queueing and reordering payments to minimize
+both kinds of issues, prioritizing high-value customer traffic over
+low-value customer traffic, etc).  Similarly, most retail brokerage
+applications (another touted application of blockchains) have a
+complex data-models -- including details like tax-lot calculations,
+multiple and complex access-control, etc, etc, etc.  We haven't even
+begun to scratch the surface of "smart, self-enforcing contracts for
+bond coupon or divident payments".  Or "bond coupon payments on
+mezzanine tranches of CDOs".  The complexity _should_ boggle the mind,
+and convince one that we should expect arbitrary database
+applications, not simplistic systems like Bitcoin.
 
 ## A Brief Counter-example
 
