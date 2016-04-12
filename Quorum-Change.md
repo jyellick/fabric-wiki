@@ -30,13 +30,23 @@ is installed, PBFT is informed of this commit-number.
     the current commit-number.  
   * of course (during startup) PBFT might also find a new
     configuration to take effect in the future, and should act
-    accordingly
+    accordingly.  How does a replica get the updated white list if the
+    network has grown? Conceivably all previously white-listed peers
+    could now be byzantine.  I'm sure this is thought out, but should
+    be described explicitly.
 
 3. At the prescribed commit-number from (2) above, PBFT will "force a
    view-change" to cause the new configuration to go into
 effect.  
   * hence, a view-change must re-read all durable configuration from
     the state.
+  * An alternate proposal is instead of performing the view change at that
+    commit, instead, simply add the new white-list member to a set of
+    'super view changers', giving the new member a one time use 
+    'everyone perform a view change to let me join the network' request.
+    In this way, we could leverage the existing view change logic for
+    picking a checkpoint for the new VP to begin executing from.  Once
+    the new VP joins the network, this view change power would be revoked.
 
 4. Build a mechanism to allow a new peer to act as a client, connect
 to the current quorum, transfer the current blockchain and
@@ -48,7 +58,11 @@ state-snapshot.
       reads"  
     * state-transfer needs to eventually use the same mechanism, but
       it won't be feasible until all peers take a state-snapshot
-      simultaneously.
+      simultaneously.  Today, there is theoretically a 'snapshot' at
+      every block.  When PBFT issues a checkpoint message, all the VPs
+      agree on a particular block hash for that checkpoint.  This is
+      how the current state transfer code is informed of 'snapshots'
+      which can be transferred to.
 
 ## PBFT Changes and Durable Configuration
 
@@ -93,7 +107,14 @@ update.
 
 There are three problems in spinning up a new peer:  
 1. currently, non-validating peers don't really work (per jyellick@)
-and even if they did, they only have the blockchain, not the state  
+and even if they did, they only have the blockchain, not the state.
+This is most likely a relatively simple fix, `noops` invokes a
+method `notifyBlockAdded` after a block has been committed, which
+creates the relevant message and broadcasts it to the NVPs.  The
+reluctance to add this to PBFT is because this seems like an odd thing
+for consensus to be doing, that instead this should probably be handled
+somewhere deeper in the peer, as this should be a common feature of all
+consensus implementations.
 2. when the peer is retrieving the blockchain and state from the
 current quorum-set, it has no way of validating that that
 blockchain/state is correct (an issue of trust).  
@@ -116,6 +137,28 @@ the question
 With the answer to this question from _2f+1_ peers (amongst them, the
 peer from which it's getting its blockchain), the client can proceed
 with verification of the integrity of its downloaded blockchain.
+
+The above seems like we're back to the same chicken or the egg problem.
+If we know which _3f+1_ to poll, then we already have our white list,
+and the lack of white list is the whole reason we're going through
+this multi-step process.  Why not just directly connect at this point?
+(There are potentially some missing configuration parameters, but these
+could be picked up in much the same way that a VP which was shut down
+at sequence number 0 and is reconnecting at sequence number 100k)
+
+There's a second problem potentially.  Asking "what is the current
+block-height" is a less simple question than it seems.  It's very likely
+that each peer is at a different block height.  This is why the existing
+`HELLO` mechanism is insufficient for PBFT.  The only promise given by
+PBFT regarding block height is that when a checkpoint message is issued,
+the VP is at least at the block height corresponding to that checkpoint.
+I think instead the correct question is "What checkpoints are you aware of"
+and then looking for the highest numbered checkpoint with f+1 matching replies.
+This is very much the logic of a view change operation.  Note, that it's
+still possible that in a fast network the watermarks may move before the new VP
+joins, or in a very fast network, the watermarks could move while the strong
+read is still occurring, and there might not be f+1 intersecting checkpoints.
+This is a problem the view change power for a new VP might solve.
 
 In a similar manner, today the blockchain records state-hashes, so the
 client can verify that the state it's transferred (which is at a
