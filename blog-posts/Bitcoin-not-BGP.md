@@ -29,6 +29,8 @@ blocks in the chain, the blockchain's answers to questions like "did
 Joe make that payment of $50k for my Maserati" are not subject to
 revision.  The argument is that there is some parameter &#03A9;
 
+&#955;
+
 Let's make the assumption crystal-clear:
 
     If we can put an upper bound on how long we need to wait, for the
