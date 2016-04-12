@@ -8,11 +8,27 @@ this short note, I want to do two things:
 * **provide a brief counter-example**.  It suffices to understand only
   the publicly known properties of Bitcoin, to prove that Bitcoin
   cannot offer anything that anybody would _recognize_ as "strong consistency".  
-* **Briefly re-explain why [_consensus_][Wikipedia-Consensus] is the
-right property** to ask of a distributed database suitable for building
-WAN-scale financial systems.  
-* **Briefly re-cap the counter-example**, as a proof that Bitcoin cannot
-  solve the consensus problem.
+* **Briefly re-explain [_consensus_][Wikipedia-Consensus] ** and
+  re-cap the counter-example, as a proof that Bitcoin cannot solve the
+  consensus problem.
+
+First though, why should any of this matter?  Bitcoin seems like a
+simple payment model, requiring a trivial database (one four-column
+table).  If, from time-to-time, an inconsistent set of transactions
+turns up, due to a too-long partition, perhaps that's the price we pay
+for a global-scale payment system.  The problem with this attitude, is
+that _payment systems in the real world_ aren't trivial.  The
+[history of payment systems][Nacamuli-Payment-Systems] tells us that
+modern payment systems are complex for reasons having _nothing_ to do
+with the underlying technology.  They must deal with (at a minimum):  
+* **default risk**: (banks keep track of how much they're owed by other
+  banks, and this forces those other banks to reorder their payments
+  to minimize their balances)  
+* **liquidity**: banks may need to borrow funds short-term to make
+  payments (the basic function of banks, let's remember, is to borrow
+  short and lend long)  
+
+
 
 ## A Brief Counter-example
 
@@ -58,7 +74,7 @@ I want to make another thing crystal-clear:
 Until a partition that lasts longer than an hour.  And as we all know,
 [the network is reliable.][Aphyr], so that never happens.
 
-## Consensus: Why it's the Right Property for WAN-Scale Databases
+## Consensus and why Bitcoin doesn't achieve it
 
 Consensus is [defined by Lamport][Lamport-Paxos-Made-Simple] in terms
 of three properties of a system that _chooses_ values:  
@@ -66,10 +82,6 @@ of three properties of a system that _chooses_ values:
 * **Agreement** Only a single value is chosen.  
 * **Validity** A process never learns that a value has been chosen,
 unless it actually has been.
-
-
-
-## Consensus and why Bitcoin doesn't achieve it
 
 In the context of a blockchain, we can think of consensus in terms of
 the blocks: we achieve consensus on the value of each block,
@@ -95,3 +107,4 @@ partition) that when the partition heals, the block is indeed revoked.
 [Wikipedia-Consensus]: https://en.wikipedia.org/wiki/Consensus_(computer_science)
 [Aphyr]: https://aphyr.com/posts/288-the-network-is-reliable
 [Lamport-Paxos-Made-Simple]: http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf
+[Nacamuli-Payment-Systems]: http://www.amazon.com/Payment-Systems-Macmillan-Financial-Institutions/dp/0230202500
