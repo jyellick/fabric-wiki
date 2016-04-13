@@ -50,6 +50,24 @@ defer for later:
        yet another, in the further future), and the window will return
        to its configured size.
 
+    [jyellick@] I think there needs to be some clarification around what
+    a 'window' is in PBFT, and the use of the term 'window' above.  For the
+    standard implementations of PBFT (classic and batch), execution of
+    transactions and committing of blocks are effectively asynchronous from
+    consensus.  From a PBFT perspective, up to K blocks may or may not exist
+    beyond the last checkpoint that a VP issued.  The log size L, by default 2*K
+    is used to compute what is referred to as the PBFT 'window', in that a PBFT node will only consens
+    about blocks which are within the sequence number of the last stable checkpoint
+    (where a node observed 2f+1, including its own checkpoints) and that sequence
+    number + L.  So, for a checkpoint interval K of 10, if vp0 last sent a checkpoint
+    regarding block 30, then all that can be said about the state of vp0's ledger
+    is that it is at least at block 30.  It would be completely acceptable and normal
+    for the most recent block to be block 31, 32, ..., 39.  In this same scenario,
+    it is perfectly normal and expected that in a 4 VP setup, vps 0,1,2,3 could have
+    block heights of 33,35,37,30, and the network would be thought to be in a consistent
+    state. (I'd point out, this is entirely incorrect in Sieve, which is much more of
+    the lock-step order, execute, commit, one at a time model.)
+
 ## A High Level Plan
 
 This document is a description of the plan for implementing quorum
@@ -279,6 +297,19 @@ with verification of the integrity of its downloaded blockchain.
        switch over and join.
 
 		Yes? [Jason, please comment?]
+
+   * [jyellick@]
+
+       1. Yes, I agree if there is some sort of service to address this, we are okay.
+
+       2. Please see my comment regarding windowing in PBFT, I think there is
+       a disconnect here, in that the ledgers are definitely _not_ in lock-step
+       across replicas.  There is not a single correct block height across the network.
+       There is a 'last block the network agreed to commit', but this is certainly no
+       guarantee that the block exists at any VP, simply that eventually this block
+       will exist at all VPs.  The network can agree what will be the contents of blocks
+       2,3,4,5 without ever agreeing on what will be the content of block 1.  It is the
+       checkpoints which guarantee the previous requests have actually executed.
 
 In a similar manner, today the blockchain records state-hashes, so the
 client can verify that the state it's transferred (which is at a
